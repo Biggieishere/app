@@ -1,0 +1,503 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block body %}
+
+    <title>BifröstSphere</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        .custom-body {
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        .hero-section {
+            background-image: url("{% static '1.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            padding: 100px 20px;
+            text-align: center;
+        }
+
+        .hero-section h1 {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+
+        .hero-section p {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+        .btn-primary {
+            background-color: #6c63ff !important;
+            border-color: #6c63ff !important;
+        }
+
+        .btn-primary:hover {
+            background-color: #5650e0 !important;
+            border-color: #5650e0 !important;
+        }
+
+        .feature-card {
+            background-color: #fff;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 40px 20px;
+            margin-bottom: 30px;
+            transition: transform 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-icon {
+            font-size: 48px;
+            color: #6c63ff;
+            margin-bottom: 20px;
+        }
+
+        .feature-heading {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .feature-description {
+            font-size: 18px;
+            color: #6c757d;
+            margin-bottom: 20px;
+        }
+
+        .feature-image {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border-radius: 10px;
+        }
+
+        .footer {
+            background-color: #343a40;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        .section {
+            padding: 60px 0;
+        }
+
+        .section-heading {
+            font-size: 36px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .testimonial-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .testimonial-card img {
+            height:150px;
+            width:120px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-card p {
+            font-size: 16px;
+            font-style: italic;
+        }
+
+        .testimonial-card h5 {
+            font-size: 20px;
+            margin-top: 10px;
+        }
+
+        .about-us {
+            text-align: center;
+            margin-top:30px;
+            margin-left:70px;
+        }
+
+        .about-us img {
+            max-width: 70%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+
+        .contact-section {
+            background-color: #f8f9fa; /* Light gray background */
+            padding: 80px 0; /* Add some vertical padding */
+            text-align: center;
+            margin:bottom 10px;
+        }
+
+        .contact-heading {
+            font-size: 36px;
+            color: #343a40; /* Dark gray text color */
+            margin-bottom: 40px; /* Add space below the heading */
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 40px; /* Add some space between contact info items */
+            max-width: 800px; /* Limit the width of the contact info */
+            margin: 0 auto; /* Center the contact info */
+        }
+
+        .contact-info-item {
+            flex: 1; /* Distribute items evenly */
+            background-color: #fff; /* White background */
+            padding: 15px; /* Add padding around each item */
+            border-radius: 10px; /* Add rounded corners */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+        }
+
+        .contact-info-item h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #6c63ff; /* Purple heading color */
+        }
+
+        .contact-info-item p {
+            font-size: 18px;
+            color: #343a40; /* Dark gray text color */
+        }
+
+        .contact-info-item i {
+            font-size: 36px;
+            color: #6c63ff; /* Purple icon color */
+            margin-bottom: 10px;
+        }
+
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+
+    {% for message in messages %}
+<div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+    <strong>{{message}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+{% endfor %}
+
+    <div class="custom-body">
+        <div class="hero-section">
+            <div class="container">
+                <h1>Welcome to BifröstSphere</h1>
+                <p>We provide cutting-edge technology solutions for businesses and individuals.</p>
+                <a href="#services" class="btn btn-primary btn-lg">Explore</a>
+            </div>
+        </div>
+
+        <div id="services" class="section">
+            <div class="container">
+                <h2 class="section-heading">Our Services</h2>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="feature-card">
+                            <i class="fas fa-laptop-code feature-icon"></i>
+                            <h3 class="feature-heading">Web Development</h3>
+                            <p class="feature-description">We design and develop stunning websites that drive results for your business.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="feature-card">
+                            <i class="fas fa-mobile-alt feature-icon"></i>
+                            <h3 class="feature-heading">Mobile Apps</h3>
+                            <p class="feature-description">Our mobile app development services help you reach your customers on their devices.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="feature-card">
+                            <i class="fas fa-cloud feature-icon"></i>
+                            <h3 class="feature-heading">Cloud Solutions</h3>
+                            <p class="feature-description">Leverage the power of cloud computing to scale and optimize your business operations.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="products" class="section">
+            <div class="container">
+                <h2 class="section-heading">Our Products</h2>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="feature-card">
+                            <img src="{% static 'neural.jpg' %}" alt="Neural Networks" class="feature-image">
+                            <h3 class="feature-heading">Neural Networks</h3>
+                            <p class="feature-description">Advanced neural network solutions for AI-driven insights and automation. We provide AI technologies for your need</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="feature-card">
+                            <img src="{% static 'computer.jpg' %}" alt="Computing Solutions" class="feature-image">
+                            <h3 class="feature-heading">Computing Solutions</h3>
+                            <p class="feature-description">High-performance computing solutions for complex problem-solving and data analysis.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="feature-card">
+                            <img src="{% static 'network.jpg' %}" alt="Networking" class="feature-image">
+                            <h3 class="feature-heading">Networking</h3>
+                            <p class="feature-description">Robust networking solutions to ensure seamless connectivity and data transfer.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="about-us" class="section">
+            <div class="container">
+                <h2 class="section-heading">About Us</h2>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <img src="{% static 'about us.jpg' %}" alt="About Us" class="img-fluid">
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="about-us">
+                            <h3>Our Mission</h3>
+                            <p>At Your Tech Company, our mission is to empower businesses through innovative technology solutions that drive growth and success.</p>
+                            <h3>Our Vision</h3>
+                            <p>We envision a world where technology seamlessly integrates with business operations, enhancing productivity and enabling new possibilities.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="testimonials" class="section bg-light">
+            <div class="container">
+                <h2 class="section-heading">Testimonials</h2>
+                <div id="testimonial-carousel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="testimonial-card">
+                                <img src="{% static 'testi1.jpg' %}" alt="Client 1" class="img-fluid rounded-circle" width="100">
+                                <p>"Your Tech Company transformed our business with their innovative solutions. Highly recommend!"</p>
+                                <h5>John smith</h5>
+                                <small>CEO of a small startup</small>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="testimonial-card">
+                                <img src="{% static 'testi2.jpg' %}" alt="Client 2" class="img-fluid rounded-circle" width="100">
+                                <p>"Outstanding service and support. Our website and mobile app are now top-notch!"</p>
+                                <h5>David Smith</h5>
+                                <small>CTO, Bifrost tech</small>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="testimonial-card">
+                                <img src="{% static 'testi3.jpg' %}" alt="Client 3" class="img-fluid rounded-circle" width="100">
+                                <p>"Their cloud solutions helped us scale efficiently. Great team to work with."</p>
+                                <h5>Robert Johnson</h5>
+                                <small>Founder, Tech Innovators</small>
+                            </div>
+                        </div>
+
+                        <div class="carousel-item">
+                            <div class="testimonial-card">
+                                <img src="{% static 'testi4.jpg' %}" alt="Client 3" class="img-fluid rounded-circle" width="100">
+                                <p>"They are a team of super amazing individuals. Helpful kind and understanding 10/10."</p>
+                                <h5>Warren smith</h5>
+                                <small>Founder, Tech Innovators</small>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <a class="carousel-control-prev" href="#testimonial-carousel" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#testimonial-carousel" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="contact-section">
+            <h2 class="contact-heading">Contact Us</h2>
+            <div class="contact-info">
+                <div class="contact-info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>Address</h3>
+                    <p>Koteshwor, Kathmandu</p>
+                </div>
+                <div class="contact-info-item">
+                    <i class="fas fa-phone"></i>
+                    <h3>Phone</h3>
+                    <p>Coming soon.</p>
+                </div>
+                <div class="contact-info-item">
+                    <i class="fas fa-envelope"></i>
+                    <h3>Email</h3>
+                    <p>info@example.com</p>
+                </div>
+            </div>
+        </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.0/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.0/ScrollTrigger.min.js"></script>
+    <script>
+        // Smooth scrolling
+        $(document).ready(function () {
+            $('a[href^="#"]').on('click', function (event) {
+                var target = this.hash;
+                var $target = $(target);
+                $('html, body').stop().animate({
+                    'scrollTop': $target.offset().top
+                }, 900, 'swing');
+            });
+        });
+
+        // GSAP animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.from('.hero-section h1', { duration: 1.5, y: -50, opacity: 0 });
+        gsap.from('.hero-section p', { duration: 1.5, y: 50, opacity: 0, delay: 0.5 });
+        gsap.from('.btn-primary', { duration: 1.5, scale: 0.5, opacity: 0, delay: 1 });
+
+        gsap.utils.toArray('.feature-card').forEach(card => {
+            gsap.from(card, {
+                scrollTrigger: {
+                    trigger: card,
+                    start: 'top 80%',
+                    end: 'bottom 20%',
+                    toggleActions: 'play none none reverse'
+                },
+                duration: 1,
+                y: 30,
+                opacity: 0,
+                ease: 'power1.inOut'
+            });
+        });
+
+        gsap.utils.toArray('.testimonial-card').forEach(card => {
+            gsap.from(card, {
+                scrollTrigger: {
+                    trigger: card,
+                    start: 'top 90%',
+                    end: 'bottom 10%',
+                    toggleActions: 'play none none reverse'
+                },
+                duration: 1,
+                y: 30,
+                opacity: 0,
+                ease: 'power1.inOut'
+            });
+        });
+
+        gsap.from('.about-us img', {
+            scrollTrigger: {
+                trigger: '.about-us img',
+                start: 'top 90%',
+                end: 'bottom 10%',
+                toggleActions: 'play none none reverse'
+            },
+            duration: 1,
+            scale: 0.5,
+            opacity: 0,
+            ease: 'power1.inOut'
+        });
+
+        gsap.from('.about-us div', {
+            scrollTrigger: {
+                trigger: '.about-us div',
+                start: 'top 90%',
+                end: 'bottom 10%',
+                toggleActions: 'play none none reverse'
+            },
+            duration: 1,
+            y: 30,
+            opacity: 0,
+            ease: 'power1.inOut'
+        });
+
+        gsap.from('.section-heading', {
+            scrollTrigger: {
+                trigger: '.section-heading',
+                start: 'top 90%',
+                end: 'bottom 10%',
+                toggleActions: 'play none none reverse'
+            },
+            duration: 1,
+            y: -20,
+            opacity: 0,
+            ease: 'power1.inOut'
+        });
+    </script>
+
+{% endblock body %}

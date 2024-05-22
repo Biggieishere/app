@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f9fafb;
+        margin: 0;
+        padding: 0;
+        color: #333;
+    }
+    .header {
+        background-color: #6200ea;
+        color: white;
+        padding: 15px 0;
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+    }
+    .container {
+        max-width: 700px;
+        margin: 40px auto;
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+        color: #333;
+        text-align: center;
+        font-size: 28px;
+        margin-bottom: 20px;
+    }
+    .review-form {
+        margin-top: 20px;
+    }
+    .review-form textarea {
+        width: 100%;
+        padding: 15px;
+        margin-bottom: 20px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        box-sizing: border-box;
+        font-size: 16px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        transition: all 0.3s ease;
+        box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .review-form textarea:focus {
+        border-color: #6200ea;
+        box-shadow: 0 0 5px rgba(98, 0, 234, 0.2);
+        outline: none;
+    }
+    .review-form input[type="submit"] {
+        background-color: #6200ea;
+        color: white;
+        padding: 15px 30px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 16px;
+        display: block;
+        width: 100%;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+    }
+    .review-form input[type="submit"]:hover {
+        background-color: #5a00d2;
+    }
+    .options {
+        text-align: center;
+        margin-top: 20px;
+    }
+    .options a {
+        color: #6200ea;
+        text-decoration: none;
+        font-size: 16px;
+    }
+    .options a:hover {
+        text-decoration: underline;
+    }
+    .alert {
+        margin-top: 20px;
+    }
+    .close {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        line-height: 1;
+        color: #000;
+        opacity: 0.5;
+        cursor: pointer;
+    }
+    .close:hover {
+        opacity: 0.75;
+    }
+</style>
+
+{% for message in messages %}
+<div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+    <strong>{{ message }}</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{% endfor %}
+
+<div class="header">
+    Review Platform
+</div>
+
+<div class="container">
+    <h1>Write a Review</h1>
+    <form class="review-form" action="" method="post">
+        {% csrf_token %}
+        <textarea name="review" rows="6" placeholder="Write your review here" required></textarea>
+        <input type="submit" value="Submit Review">
+    </form>
+
+    <div class="options">
+        <a href="/reviews-customer">See the reviews</a>
+    </div>
+</div>
+
+{% endblock body %}

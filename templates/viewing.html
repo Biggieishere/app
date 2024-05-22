@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #6c63ff;
+            font-size: 32px;
+            margin-bottom: 30px;
+        }
+        .review {
+            margin-bottom: 20px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            background: linear-gradient(145deg, #ffffff, #f0f0f0);
+            box-shadow: 3px 3px 6px #cbced1,
+                        -3px -3px 6px #ffffff;
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+        }
+        .review:hover {
+            box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1),
+                        -4px -4px 8px rgba(255, 255, 255, 0.7);
+            transform: translateY(-2px);
+        }
+        .review-content {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #333333;
+            margin-bottom: 10px;
+        }
+        .review-user {
+            font-style: italic;
+            color: #555555;
+        }
+        .review-number {
+            font-weight: bold;
+            color: #6c63ff;
+            margin-bottom: 10px;
+        }
+    </style>
+
+    <div class="container">
+        <h1>Review Section</h1>
+        <div class="reviews">
+            {% for review in reviews %}
+            <div class="review">
+                <p class="review-number">Review #{{ forloop.counter }}</p>
+                <p class="review-content">{{ review.review | safe }}</p>
+                <p class="review-user">By: {{ review.user.username }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock body %}

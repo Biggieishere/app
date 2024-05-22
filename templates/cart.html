@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12 text-center mb-5">
+            <h2 class="display-4">Your Cart</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <ul class="list-group">
+                {% for item in cart_items %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="img-thumbnail" style="width: 50px; height: 50px;">
+                        <strong>{{ item.product.name }}</strong> - ${{ item.product.price }} x <span class="badge badge-primary badge-pill">{{ item.quantity }}</span>
+                    </div>
+                    <div>
+                        <button class="btn btn-success btn-sm update-cart" data-id="{{ item.product.id }}" data-action="add">+</button>
+                        <button class="btn btn-danger btn-sm update-cart" data-id="{{ item.product.id }}" data-action="subtract">-</button>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+<style>
+.list-group-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.img-thumbnail {
+    border-radius: 50%;
+}
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.update-cart').forEach(button => {
+            button.addEventListener('click', function() {
+                const productId = this.getAttribute('data-id');
+                const action = this.getAttribute('data-action');
+                fetch(`/update_cart/${productId}/${action}/`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}',
+                        'Content-Type': 'application/json'
+                    }
+                }).then(response => {
+                    if (response.ok) {
+                        window.location.reload();
+                    } else {
+                        alert('Failed to update cart');
+                    }
+                });
+            });
+        });
+    });
+</script>
+{% endblock %}
